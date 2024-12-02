@@ -14,31 +14,33 @@ public partial class Answers(ITestOutputHelper testOutputHelper)
         var dayOneInput = FileHelper.LoadEmbeddedFile("DayOne.txt");
 
         // Parse file into 2 lists
-        var inputs = ParseDayOneInput(dayOneInput);
+        var inputs = sut.ParseInput(dayOneInput);
 
         var totalDistance = sut.CalculateTotalDistance(inputs.ListA, inputs.ListB);
 
-        testOutputHelper.WriteLine("Todays answer is: {0}", totalDistance);
+        testOutputHelper.WriteLine("Today's answer is: {0}", totalDistance);
     }
 
-    [GeneratedRegex(@"(\d+)\s+(\d+)", RegexOptions.Compiled)]
-    private static partial Regex DayOneInputRegex();
-
-    private (List<int> ListA, List<int> ListB) ParseDayOneInput(string input)
+    [Fact]
+    public void DayTwoAnswer()
     {
-        var listA = new List<int>();
-        var listB = new List<int>();
+        var sut = new DayTwo();
+        
+        var dayTwoInput = FileHelper.LoadEmbeddedFile("DayTwo.txt");
+        
+        var reports = sut.ParseInput(dayTwoInput);
+        
+        var safeReports = sut.GetSafeReports(reports);
+        
+        // This is correct answer
+        Assert.Equal(516, safeReports.Count);
+        
+        testOutputHelper.WriteLine("Today's answer is: There are {0} safe reports", safeReports.Count);
+        
+        var safeReportsWithProblemDamper = sut.GetSafeReportsWithProblemDamper(reports);
+        
+        testOutputHelper.WriteLine("Today's answer is: There are {0} safe reports with the problem damper enabled", safeReportsWithProblemDamper.Count);
 
-        foreach (Match match in DayOneInputRegex().Matches(input))
-        {
-            if (match.Success)
-            {
-                // Add to respective lists
-                listA.Add(int.Parse(match.Groups[1].Value));
-                listB.Add(int.Parse(match.Groups[2].Value));
-            }
-        }
-
-        return (listA, listB);
+        Assert.Equal(561, safeReportsWithProblemDamper.Count);
     }
 }

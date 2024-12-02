@@ -1,6 +1,8 @@
-﻿namespace AdventOfCode2024;
+﻿using System.Text.RegularExpressions;
 
-public class DayOne
+namespace AdventOfCode2024;
+
+public partial class DayOne : IDailyChallenge<(List<int> ListA, List<int> ListB)>
 {
     public int CalculateTotalDistance(List<int> listA, List<int> listB)
     {
@@ -26,4 +28,29 @@ public class DayOne
 
         return distances.Sum(x => x);
     }
+
+    #region Parse Input
+    
+    [GeneratedRegex(@"(\d+)\s+(\d+)", RegexOptions.Compiled)]
+    private static partial Regex DayOneInputRegex();
+
+    public (List<int> ListA, List<int> ListB) ParseInput(string input)
+    {
+        var listA = new List<int>();
+        var listB = new List<int>();
+
+        foreach (Match match in DayOneInputRegex().Matches(input))
+        {
+            if (match.Success)
+            {
+                // Add to respective lists
+                listA.Add(int.Parse(match.Groups[1].Value));
+                listB.Add(int.Parse(match.Groups[2].Value));
+            }
+        }
+
+        return (listA, listB);
+    }
+    
+    #endregion Parse Input
 }
