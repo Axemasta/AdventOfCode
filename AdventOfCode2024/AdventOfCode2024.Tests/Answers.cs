@@ -51,10 +51,20 @@ public partial class Answers(ITestOutputHelper testOutputHelper)
 
         var dayThreeInput = FileHelper.LoadEmbeddedFile("DayThree.txt");
         
-        var commands = sut.DecidpherCorruptedCommands(dayThreeInput);
+        var multiplyCommands = sut.DecipherCorruptedMultiplyCommands(dayThreeInput);
 
-        var partOneAnswer = commands.CalculateSum();
+        var partOneAnswer = multiplyCommands.CalculateSum();
 
         testOutputHelper.WriteLine("Today's answer for part one is: {0}", partOneAnswer);
+        
+        Assert.Equal(168539636, partOneAnswer);
+        
+        var commands = sut.DecipherCorruptedCommands(dayThreeInput);
+        
+        var partTwoAnswer = commands.CalculateSum();
+        
+        testOutputHelper.WriteLine("Today's answer for part two is: {0}", partTwoAnswer);
+        
+        Assert.Equal(97529391, partTwoAnswer);
     }
 }

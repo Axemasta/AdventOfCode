@@ -64,10 +64,24 @@ public class SampleTests
 
         var sampleInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
 
-        var commands = sut.DecidpherCorruptedCommands(sampleInput);
+        var commands = sut.DecipherCorruptedMultiplyCommands(sampleInput);
 
         var result = commands.CalculateSum();
         
         Assert.Equal(161, result);
+    }
+    
+    [Fact]
+    public void DayThreeSampleWithEnabledDisabled_Should_Calculate48()
+    {
+        var sut = new DayThree();
+
+        var sampleInput = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
+
+        var commands = sut.DecipherCorruptedCommands(sampleInput);
+
+        var result = commands.CalculateSum();
+        
+        Assert.Equal(48, result);
     }
 }
