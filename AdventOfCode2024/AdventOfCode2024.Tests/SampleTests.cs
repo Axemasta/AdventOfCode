@@ -56,4 +56,18 @@ public class SampleTests
         
         Assert.Equal(4, safeReports.Count);
     }
+
+    [Fact]
+    public void DayThreeSample_Should_Calculate161()
+    {
+        var sut = new DayThree();
+
+        var sampleInput = "xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))";
+
+        var commands = sut.DecidpherCorruptedCommands(sampleInput);
+
+        var result = commands.CalculateSum();
+        
+        Assert.Equal(161, result);
+    }
 }

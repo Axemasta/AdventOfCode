@@ -43,4 +43,18 @@ public partial class Answers(ITestOutputHelper testOutputHelper)
 
         Assert.Equal(561, safeReportsWithProblemDamper.Count);
     }
+    
+    [Fact]
+    public void DayThreeAnswer()
+    {
+        var sut = new DayThree();
+
+        var dayThreeInput = FileHelper.LoadEmbeddedFile("DayThree.txt");
+        
+        var commands = sut.DecidpherCorruptedCommands(dayThreeInput);
+
+        var partOneAnswer = commands.CalculateSum();
+
+        testOutputHelper.WriteLine("Today's answer for part one is: {0}", partOneAnswer);
+    }
 }
